@@ -1,0 +1,1065 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#161718">
+<title>Corneta Guía</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Big+Shoulders+Display:wght@800;900&display=swap" rel="stylesheet">
+<style>
+/* Concepto: pantalla de práctica como el video. Fondo carbón, pista verde con barras de colores que llegan a una línea, estrellas doradas por frase. */
+:root {
+  --ground: #161718;
+  --panel: #222427;
+  --panel-2: #2c2f33;
+  --line: #3b3f44;
+  --ink: #f3f3ef;
+  --muted: #a4abb1;
+  --accent: #74c93a;
+  --accent-ink: #0f1d05;
+  --gold: #f6c343;
+  --ok: #74c93a;
+  --bad: #ff6a5a;
+  --display: "Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
+  --body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font: 400 1rem/1.45 var(--body);
+  padding-block: max(16px, env(safe-area-inset-top, 0px)) max(28px, env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+[hidden] { display: none !important; }
+.app { max-width: 640px; margin: 0 auto; }
+.screen { display: grid; gap: 16px; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.eyebrow { margin: 0; font: 800 0.78rem/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+h1 { margin: 4px 0 6px; font: 900 2.8rem/0.95 var(--display); letter-spacing: 0.01em; text-transform: uppercase; text-wrap: balance; }
+.sub { margin: 0; color: var(--muted); }
+.label { display: block; font: 800 0.72rem/1 var(--body); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+/* botones */
+button { font: 800 1rem/1 var(--body); cursor: pointer; min-height: 48px; padding: 0 18px; border-radius: 999px; border: 0; background: var(--panel-2); color: var(--ink); }
+button:hover { background: #363a3f; }
+button.primary { background: var(--accent); color: var(--accent-ink); }
+button.primary:hover { background: #86dc4b; }
+button.primary.live { background: transparent; color: var(--accent); box-shadow: inset 0 0 0 2px var(--accent); }
+button.small { min-height: 40px; padding: 0 14px; }
+.msg { margin: 0; font-size: 0.92rem; color: var(--bad); min-height: 1.3em; }
+.msg.info { color: var(--muted); }
+.pill { font: 800 0.75rem/1 var(--body); letter-spacing: 0.06em; text-transform: uppercase; padding: 8px 12px; border-radius: 999px; color: var(--muted); background: var(--panel); white-space: nowrap; }
+.pill.on { color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+
+/* menú de toques */
+.songs { display: grid; gap: 10px; }
+.card-song { width: 100%; text-align: left; display: flex; align-items: center; gap: 14px; min-height: 72px; padding: 12px 16px; border-radius: 14px; background: var(--panel); }
+.card-song:hover { background: var(--panel-2); }
+.card-song .swatch { flex: none; width: 10px; align-self: stretch; border-radius: 5px; }
+.card-song .info { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.card-song .name { font: 900 1.45rem/1 var(--display); letter-spacing: 0.03em; text-transform: uppercase; }
+.card-song .meta { font-size: 0.85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.tag { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); padding: 2px 8px; border-radius: 999px; }
+.best { flex: none; text-align: right; font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.best b { display: block; color: var(--ink); font-size: 1rem; }
+.stars { color: var(--gold); letter-spacing: 0.05em; }
+.stars .off { color: #54585e; }
+
+details { background: var(--panel); border-radius: 14px; }
+summary { cursor: pointer; list-style: none; padding: 14px 16px; font: 900 1.1rem/1 var(--display); letter-spacing: 0.06em; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; }
+details[open] summary::after { content: "–"; }
+.body { padding: 0 16px 16px; display: grid; gap: 14px; }
+.field { display: grid; gap: 6px; }
+.field label, .field .lab { font-weight: 700; font-size: 0.95rem; }
+.hint { margin: 0; font-size: 0.85rem; color: var(--muted); }
+textarea, select, input[type="number"] { font: 400 1rem/1.4 var(--body); color: var(--ink); background: var(--ground); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; }
+textarea { min-height: 8rem; resize: vertical; }
+input[type="range"] { width: 100%; accent-color: var(--accent); }
+.btnrow { display: flex; flex-wrap: wrap; gap: 10px; }
+.stepper { display: flex; gap: 8px; align-items: center; }
+.stepper input { text-align: center; max-width: 6rem; }
+.check { display: flex; gap: 10px; align-items: flex-start; }
+.check input { width: 22px; height: 22px; margin-top: 2px; accent-color: var(--accent); }
+.level { position: relative; height: 10px; background: var(--panel-2); border-radius: 5px; }
+.level .fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--ok); border-radius: 5px; }
+.level .gate { position: absolute; top: -3px; bottom: -3px; width: 3px; border-radius: 2px; background: var(--gold); left: 20%; }
+.keys { display: flex; flex-wrap: wrap; gap: 8px; }
+.keys button { font-family: var(--display); font-size: 1.3rem; font-weight: 900; text-transform: uppercase; min-width: 64px; border-radius: 12px; }
+
+/* pantalla de juego */
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.topbar .title { flex: 1; min-width: 0; text-align: center; font: 900 1.3rem/1 var(--display); letter-spacing: 0.05em; text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hw { position: relative; border-radius: 14px; overflow: hidden; background: #86d13b; }
+.hw canvas { display: block; width: 100%; height: 236px; }
+.hud { position: absolute; left: 12px; right: 12px; top: 8px; display: flex; justify-content: space-between; align-items: flex-start; pointer-events: none; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.25); font-variant-numeric: tabular-nums; }
+.mult { font: 900 1.25rem/1 var(--body); }
+.scorebox { text-align: right; }
+.score { font: 900 1.7rem/1 var(--body); }
+.part { font: 800 0.8rem/1.2 var(--body); opacity: 0.9; }
+.gain { position: absolute; left: 26%; top: 42%; font: 900 1.1rem/1 var(--body); color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.4); pointer-events: none; opacity: 0; }
+.gain.go { animation: gain 0.7s ease-out; }
+@keyframes gain { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-34px); } }
+
+.progress { display: grid; gap: 6px; }
+.progress .row { display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.track { height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; }
+.track > i { display: block; height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
+
+.stage { display: grid; grid-template-columns: 1.15fr 1fr; gap: 12px; }
+.card { background: var(--panel); border-radius: 14px; padding: 14px; min-width: 0; }
+.target { display: flex; flex-direction: column; gap: 8px; }
+.tnote { display: flex; align-items: baseline; gap: 6px; font-family: var(--display); font-weight: 900; color: var(--accent); line-height: 0.9; }
+.tnote .name { font-size: clamp(3.4rem, 18vw, 5.4rem); }
+.tnote .oct { font-size: clamp(1.4rem, 6vw, 2rem); color: var(--ink); opacity: 0.8; }
+.next { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.hold { height: 6px; background: var(--panel-2); border-radius: 3px; overflow: hidden; }
+.hold > i { display: block; height: 100%; width: 0; background: var(--accent); }
+.heard .hn { font: 900 2.2rem/1 var(--display); min-height: 2.2rem; margin: 10px 0 12px; color: var(--muted); }
+.heard.ok .hn { color: var(--ok); }
+.heard.bad .hn { color: var(--bad); }
+.cents { position: relative; height: 12px; background: var(--panel-2); border-radius: 6px; }
+.cents::before { content: ""; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 2px; background: var(--muted); opacity: 0.7; }
+.cents i { position: absolute; top: 1px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: var(--muted); left: var(--pos, 50%); opacity: 0.25; }
+.heard.live .cents i { opacity: 1; }
+.heard.ok .cents i { background: var(--ok); }
+.heard.bad .cents i { background: var(--bad); }
+.centsTxt { margin: 8px 0 0; font-size: 0.8rem; color: var(--muted); min-height: 1.2em; font-variant-numeric: tabular-nums; }
+
+.song { max-height: 9.5rem; overflow-y: auto; display: grid; gap: 8px; padding: 12px; background: var(--panel); border-radius: 14px; }
+.phrase { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 900 1.1rem/1 var(--display); letter-spacing: 0.03em; text-transform: uppercase; padding: 7px 10px; border-radius: 8px; color: var(--ink); background: var(--panel-2); }
+.chip sub { font-size: 0.7em; opacity: 0.7; vertical-align: baseline; margin-left: 2px; }
+.chip.done { opacity: 0.4; background: transparent; }
+.chip.current { background: var(--accent); color: var(--accent-ink); }
+.chip.pulse { animation: pulse 0.35s ease-out; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--ok); } 100% { box-shadow: 0 0 0 12px transparent; } }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.actions .primary { flex: 1 1 12rem; }
+
+/* resultados */
+.results { text-align: center; justify-items: center; padding-top: 12px; }
+.results .rtitle { font: 900 1.9rem/1 var(--display); letter-spacing: 0.06em; text-transform: uppercase; margin: 0; }
+.results .rsub { margin: 0; color: var(--muted); }
+.rscore { display: grid; gap: 6px; justify-items: center; }
+.rscore .big { font: 900 3rem/1 var(--body); font-variant-numeric: tabular-nums; }
+.badge { background: var(--gold); color: #3a2a00; font: 900 0.78rem/1 var(--body); letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 12px; border-radius: 6px; }
+.rparts { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.rpart { display: grid; gap: 6px; justify-items: center; padding: 10px 14px; background: var(--panel); border-radius: 999px; min-width: 96px; }
+.rpart .stars { font-size: 1.2rem; }
+.rpart .pl { font-size: 0.78rem; color: var(--muted); }
+.results .btnrow { justify-content: center; }
+.results .btnrow .primary { min-width: 11rem; }
+
+@media (prefers-reduced-motion: reduce) { .chip.pulse, .gain.go { animation: none; } .track > i { transition: none; } }
+@media (max-width: 380px) { .stage { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main class="app">
+
+  <!-- Menú -->
+  <section id="screenMenu" class="screen">
+    <header>
+      <p class="eyebrow">Banda de guerra</p>
+      <h1>Corneta Guía</h1>
+      <p class="sub">Elige un toque y tócalo con tu corneta. La app te sigue nota por nota.</p>
+    </header>
+    <div id="songs" class="songs"></div>
+    <details>
+      <summary>Editar notas de un toque</summary>
+      <div class="body">
+        <div class="field">
+          <label for="editSel">Toque</label>
+          <select id="editSel"></select>
+        </div>
+        <div class="field">
+          <label for="songText">Notas</label>
+          <textarea id="songText" spellcheck="false"></textarea>
+          <p class="hint">Una nota por palabra: Do, Re, Mi, Fa, Sol, La, Si. Agrega # o b para sostenidos y bemoles. Después de la nota puedes poner cuántos tiempos dura: Sol:2 dura el doble, Do:0.5 la mitad. Si escribes la octava (Sol4, Do5) también se revisa. R:1 es un silencio de un tiempo. Un renglón que empieza con # es un comentario. Cada renglón es una frase y da una calificación de estrellas.</p>
+        </div>
+        <div class="btnrow">
+          <button id="saveBtn" class="primary" type="button">Guardar</button>
+          <button id="restoreBtn" type="button">Volver al original</button>
+        </div>
+        <p id="songMsg" class="msg info"></p>
+      </div>
+    </details>
+  </section>
+
+  <!-- Juego -->
+  <section id="screenPlay" class="screen" hidden>
+    <div class="topbar">
+      <button id="backBtn" class="small" type="button" aria-label="Volver a los toques">‹ Toques</button>
+      <div id="songTitle" class="title"></div>
+      <span id="status" class="pill">Micrófono apagado</span>
+    </div>
+
+    <div class="hw">
+      <canvas id="hw" aria-label="Pista con las notas que vienen"></canvas>
+      <div class="hud">
+        <div id="mult" class="mult">1×</div>
+        <div class="scorebox"><div id="score" class="score">0</div><div id="part" class="part"></div></div>
+      </div>
+      <div id="gain" class="gain"></div>
+    </div>
+
+    <section class="progress" aria-label="Avance">
+      <div class="row"><span id="count">Sin notas</span><span id="countPct"></span></div>
+      <div class="track"><i id="bar"></i></div>
+    </section>
+
+    <section class="stage" aria-live="polite">
+      <div class="card target">
+        <span class="label">Toca</span>
+        <div class="tnote"><span id="tName" class="name">—</span><span id="tOct" class="oct"></span></div>
+        <p id="tNext" class="next"></p>
+        <div class="hold" aria-hidden="true"><i id="hold"></i></div>
+      </div>
+      <div id="heardCard" class="card heard">
+        <span class="label">Escucho</span>
+        <div id="hn" class="hn">—</div>
+        <div class="cents" aria-hidden="true"><i id="needle"></i></div>
+        <p id="centsTxt" class="centsTxt"></p>
+      </div>
+    </section>
+
+    <section class="actions">
+      <button id="micBtn" class="primary" type="button">Activar micrófono</button>
+      <button id="hearBtn" type="button">Oír la nota</button>
+      <button id="restartBtn" type="button">Reiniciar</button>
+    </section>
+    <p id="micMsg" class="msg" role="status"></p>
+
+    <section id="song" class="song" aria-label="Notas del toque"></section>
+
+    <details>
+      <summary>Ajustes</summary>
+      <div class="body">
+        <div class="field">
+          <span class="lab">Volumen que escucho</span>
+          <div class="level" aria-hidden="true"><div id="lvl" class="fill"></div><div id="gate" class="gate"></div></div>
+          <label for="sens">Sensibilidad del micrófono</label>
+          <input id="sens" type="range" min="1" max="10" step="1">
+          <p class="hint">La barra verde debe pasar la raya dorada cuando tocas y quedarse debajo con el ruido de fondo.</p>
+        </div>
+        <div class="field">
+          <label for="holdRange">Rapidez de reconocimiento: <span id="holdVal"></span> ms</label>
+          <input id="holdRange" type="range" min="60" max="250" step="10">
+          <p class="hint">Menos milisegundos avanza más rápido, pero se equivoca más fácil con notas de paso.</p>
+        </div>
+        <div class="field">
+          <span class="lab">Transposición (semitonos)</span>
+          <div class="stepper">
+            <button id="trDown" class="small" type="button" aria-label="Bajar un semitono">−</button>
+            <input id="transpose" type="number" min="-12" max="12" step="1" aria-label="Semitonos">
+            <button id="trUp" class="small" type="button" aria-label="Subir un semitono">+</button>
+          </div>
+          <p class="hint">Si tu corneta suena más grave o más agudo de lo que escribes, cambia este número hasta que coincida.</p>
+        </div>
+        <label class="check" for="octave"><input id="octave" type="checkbox"><span>Exigir la octava exacta. Si está apagado, Sol4 y Sol5 valen igual.</span></label>
+      </div>
+    </details>
+
+    <details>
+      <summary>Probar sin corneta</summary>
+      <div class="body">
+        <p class="hint">Toca una nota para simular que la tocaste. Sirve para revisar que el toque avanza como esperas.</p>
+        <div id="keys" class="keys"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- Resultados -->
+  <section id="screenResults" class="screen results" hidden>
+    <h2 id="resTitle" class="rtitle"></h2>
+    <p id="resSub" class="rsub"></p>
+    <div class="rscore">
+      <span class="label">Puntos</span>
+      <div id="resScore" class="big">0</div>
+      <span id="resBadge" class="badge" hidden>Nuevo récord</span>
+    </div>
+    <div id="resParts" class="rparts"></div>
+    <div class="btnrow">
+      <button id="resAgain" type="button">Tocar otra vez</button>
+      <button id="resNext" class="primary" type="button">Continuar</button>
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function () {
+'use strict';
+// Detector de altura (YIN). Devuelve la frecuencia en Hz o 0 si no hay tono claro.
+function yinPitch(buf, sampleRate, threshold) {
+  var W = Math.min(2048, buf.length >> 1);
+  var tauMin = Math.max(2, Math.floor(sampleRate / 1600));
+  var tauMax = Math.min(W - 1, Math.floor(sampleRate / 150));
+  if (tauMax <= tauMin + 2) return 0;
+  var th = threshold || 0.15;
+  var d = new Float32Array(tauMax + 1);
+  var tau, i, diff, sum;
+  for (tau = 1; tau <= tauMax; tau++) {
+    sum = 0;
+    for (i = 0; i < W; i++) {
+      diff = buf[i] - buf[i + tau];
+      sum += diff * diff;
+    }
+    d[tau] = sum;
+  }
+  // diferencia normalizada acumulada
+  var cm = new Float32Array(tauMax + 1);
+  cm[0] = 1;
+  var running = 0;
+  for (tau = 1; tau <= tauMax; tau++) {
+    running += d[tau];
+    cm[tau] = running > 0 ? (d[tau] * tau) / running : 1;
+  }
+  var best = -1;
+  for (tau = tauMin; tau < tauMax; tau++) {
+    if (cm[tau] < th) {
+      while (tau + 1 < tauMax && cm[tau + 1] < cm[tau]) tau++;
+      best = tau;
+      break;
+    }
+  }
+  if (best < 0) return 0;
+  // interpolación parabólica
+  var a = cm[best - 1], b = cm[best], c = cm[best + 1 <= tauMax ? best + 1 : best];
+  var denom = 2 * (2 * b - c - a);
+  var shift = denom !== 0 ? (c - a) / denom : 0;
+  if (Math.abs(shift) > 1) shift = 0;
+  return sampleRate / (best + shift);
+}
+
+var NOMBRES = ['Do', 'Do♯', 'Re', 'Re♯', 'Mi', 'Fa', 'Fa♯', 'Sol', 'Sol♯', 'La', 'La♯', 'Si'];
+var BASES = { do: 0, re: 2, mi: 4, fa: 5, sol: 7, la: 9, si: 11, c: 0, d: 2, e: 4, f: 5, g: 7, a: 9, b: 11 };
+var TOKEN_RE = /^(sol|do|re|mi|fa|la|si|[a-g])([#b♯♭]?)(-?\d)?(?::(\d+(?:\.\d+)?(?:\/\d+)?))?$/i;
+var REST_RE = /^(?:r|sil)(?::(\d+(?:\.\d+)?(?:\/\d+)?))?$/i;
+
+function mod12(n) { return ((n % 12) + 12) % 12; }
+function freqToMidi(f, a4) { return 69 + 12 * Math.log2(f / (a4 || 440)); }
+function midiToFreq(m, a4) { return (a4 || 440) * Math.pow(2, (m - 69) / 12); }
+function noteLabel(midi) { return NOMBRES[mod12(midi)] + (Math.floor(midi / 12) - 1); }
+
+function parseBeats(txt) {
+  if (txt === undefined) return 1;
+  var v;
+  if (txt.indexOf('/') >= 0) { var q = txt.split('/'); v = parseFloat(q[0]) / parseFloat(q[1]); }
+  else v = parseFloat(txt);
+  if (!isFinite(v) || v <= 0) v = 1;
+  return Math.max(0.25, Math.min(8, v));
+}
+
+// Lee el texto del toque. Cada renglón es una frase; las notas se separan con espacios, comas o guiones.
+// Después de la nota se puede poner la duración en tiempos: Sol:2 (por omisión 1), Do:0.5 o Do:1/3.
+// R:1 es un silencio de un tiempo. Un renglón que empieza con # es un comentario.
+function parseSong(text) {
+  var lines = [], flat = [], errors = [], cursor = 0;
+  String(text || '').split(/\r?\n/).forEach(function (line) {
+    if (/^\s*#/.test(line)) return;
+    var row = [], started = false;
+    function gap() { if (!started) { started = true; if (flat.length > 0) cursor += 0.5; } } // pausa visual entre frases
+    line.split(/[\s,;|·–—]+|-(?!\d)/).forEach(function (raw) {
+      if (!raw) return;
+      var rm = REST_RE.exec(raw);
+      if (rm) { gap(); cursor += parseBeats(rm[1]); return; }
+      var m = TOKEN_RE.exec(raw);
+      if (!m) { errors.push(raw); return; }
+      var acc = m[2] === '#' || m[2] === '♯' ? 1 : (m[2] === 'b' || m[2] === '♭' ? -1 : 0);
+      var pc = mod12(BASES[m[1].toLowerCase()] + acc);
+      var oct = m[3] !== undefined ? parseInt(m[3], 10) : null;
+      var beats = parseBeats(m[4]);
+      gap();
+      var tok = {
+        raw: raw, pc: pc, oct: oct,
+        midi: oct === null ? null : 12 * (oct + 1) + BASES[m[1].toLowerCase()] + acc,
+        name: NOMBRES[pc], index: flat.length,
+        beats: beats, start: cursor, line: lines.length
+      };
+      cursor += beats;
+      row.push(tok); flat.push(tok);
+    });
+    if (row.length) lines.push(row);
+  });
+  return { lines: lines, flat: flat, errors: errors, totalBeats: cursor };
+}
+
+// Sigue la ejecución: recibe cuadros de audio y decide si la nota esperada ya sonó.
+function Follower(opts) {
+  opts = opts || {};
+  this.holdMs = opts.holdMs || 110;
+  this.tolCents = opts.tolCents || 40;
+  this.releaseMs = opts.releaseMs || 60;
+  this.requireOctave = !!opts.requireOctave;
+  this.transpose = opts.transpose || 0;
+  this.song = [];
+  this.reset();
+}
+Follower.prototype.setSong = function (flat) { this.song = flat; this.reset(); };
+Follower.prototype.reset = function () {
+  this.idx = 0; this.cand = null; this.candSince = 0;
+  this.quietSince = null; this.lastMidi = null; this.armed = true;
+};
+Follower.prototype.done = function () { return this.song.length > 0 && this.idx >= this.song.length; };
+Follower.prototype.target = function () { return this.song[this.idx] || null; };
+// t en ms; midiFloat = nota detectada (con decimales) o null si no hay tono
+Follower.prototype.feed = function (t, midiFloat) {
+  if (this.done() || !this.song.length) return { type: 'idle' };
+  if (midiFloat === null || midiFloat === undefined) {
+    if (this.quietSince === null) this.quietSince = t;
+    if (t - this.quietSince >= this.releaseMs) this.armed = true;
+    this.cand = null;
+    return { type: 'quiet' };
+  }
+  this.quietSince = null;
+  var nearest = Math.round(midiFloat);
+  var cents = (midiFloat - nearest) * 100;
+  if (Math.abs(cents) > this.tolCents) { this.cand = null; return { type: 'hearing', midi: nearest, cents: cents }; }
+  if (this.cand !== nearest) { this.cand = nearest; this.candSince = t; }
+  var tok = this.song[this.idx];
+  var match;
+  if (this.requireOctave && tok.midi !== null) match = nearest === tok.midi + this.transpose;
+  else match = mod12(nearest) === mod12(tok.pc + this.transpose);
+  if (!match) {
+    // la nota anterior sigue sonando después de avanzar: no es un error
+    var ringing = !this.armed && this.lastMidi !== null &&
+      (this.requireOctave ? nearest === this.lastMidi : mod12(nearest) === mod12(this.lastMidi));
+    if (ringing) return { type: 'sustain', midi: nearest, cents: cents };
+    return { type: 'wrong', midi: nearest, cents: cents, heldMs: t - this.candSince };
+  }
+  var sameAsLast = this.lastMidi !== null &&
+    (this.requireOctave ? nearest === this.lastMidi : mod12(nearest) === mod12(this.lastMidi));
+  if (sameAsLast && !this.armed) return { type: 'waiting', midi: nearest, cents: cents };
+  if (t - this.candSince >= this.holdMs) {
+    this.idx++; this.lastMidi = nearest; this.armed = false;
+    return { type: 'advance', midi: nearest, cents: cents, finished: this.done() };
+  }
+  return { type: 'holding', midi: nearest, cents: cents, progress: (t - this.candSince) / this.holdMs };
+};
+
+
+function $(id) { return document.getElementById(id); }
+
+/* ---------- toques ----------
+   "Marcha 13 Marinos" se leyó de la partitura que mandó Angel (las repeticiones y casillas ya van desplegadas).
+   Los "Borrador" son una propuesta con las notas de la corneta (Do, Mi, Sol). Se corrigen en "Editar notas de un toque". */
+var SONGS = [
+  { id: 'marcha13', name: 'Marcha 13 Marinos', tag: 'Revisar notas',
+    text: "# Parte A, primera vez\nDo5:1/3 Do5:1/3 Do5:1/3 Do5:1/3 Sol4:1/3 Do5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Do5:1/3 Mi5:1/3 Sol5:1/3 Sol5:1/3 Sol5:1/3 Sol5:1/3 Mi5:1/3 Do5:1/3\nSol4:1/3 Sol4:1/3 Sol4:1/3 Sol4 Do5:1/3 Do5:1/3 Do5:1/3 Do5:1/3 Sol4:1/3 Do5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Do5:1/3 Mi5:1/3 Sol5:1/3 Mi5:1/3 Do5:1/3 Sol4:0.75 Sol4:0.25 Do5:2\n# Parte A, repetición\nDo5:1/3 Do5:1/3 Do5:1/3 Do5:1/3 Sol4:1/3 Do5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Do5:1/3 Mi5:1/3 Sol5:1/3 Sol5:1/3 Sol5:1/3 Sol5:1/3 Mi5:1/3 Do5:1/3\nSol4:1/3 Sol4:1/3 Sol4:1/3 Sol4 Do5:1/3 Do5:1/3 Do5:1/3 Do5:1/3 Sol4:1/3 Do5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Do5:1/3 Mi5:1/3 Sol5:1/3 Mi5:1/3 Do5:1/3 Sol4:0.75 Sol4:0.25 Do5:2\n# Parte B, primera vez\nDo5 Mi5 Sol5 Mi5 Do5 Mi5 Sol5 R:0.5 Sol4:0.5\nSol4 Sol4 Sol4 Sol5 Mi5:2\nDo5 R:0.5 Sol4:0.5 Do5 Sol4 Do5 Mi5 Sol5:1.5 Mi5:0.5\nDo5:0.5 Sol4:0.5 Sol4:0.5 Sol4:0.5 Sol5 Sol4 Sol4 Sol4:0.5 Sol4:0.5 Do5:3 R:0.5 Sol4:0.5\n# Parte B, repetición y final\nDo5 Mi5 Sol5 Mi5 Do5 Mi5 Sol5 R:0.5 Sol4:0.5\nSol4 Sol4 Sol4 Sol5 Mi5:2\nDo5 R:0.5 Sol4:0.5 Do5 Sol4 Do5 Mi5 Sol5:1.5 Mi5:0.5\nDo5:0.5 Sol4:0.5 Sol4:0.5 Sol4:0.5 Sol5 Sol4 Sol4 Sol4:0.5 Sol4:0.5 Do5:2\nDo5:1.5 Sol5:0.5 Sol5 R:0.5 Sol4:0.5 Sol4 Sol5 Mi5:2\nDo5 R:0.5 Sol5:0.5 Sol5 R:0.5 Sol4:0.5 Sol4 Sol4 Do5:3 R:1\nSol4 Do5\n# Parte C, primera vez\nDo5:1/3 Do5:1/3 Do5:1/3 Do5:1/3 Sol4:1/3 Do5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Do5:1/3 Mi5:1/3 Sol5:1/3 Sol5:1/3 Sol5:1/3 Sol5:1/3 Mi5:1/3 Do5:1/3\nSol4:1/3 Sol4:1/3 Sol4:1/3 Sol4 Do5:1/3 Do5:1/3 Do5:1/3 Do5:1/3 Sol4:1/3 Do5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Do5:1/3 Mi5:1/3 Sol5:1/3 Mi5:1/3 Do5:1/3 Sol4:0.75 Sol4:0.25 Do5 R:1\n# Parte C, repetición y final\nDo5:1/3 Do5:1/3 Do5:1/3 Do5:1/3 Sol4:1/3 Do5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Do5:1/3 Mi5:1/3 Sol5:1/3 Sol5:1/3 Sol5:1/3 Sol5:1/3 Mi5:1/3 Do5:1/3\nSol4:1/3 Sol4:1/3 Sol4:1/3 Sol4 Do5:1/3 Do5:1/3 Do5:1/3 Do5:1/3 Sol4:1/3 Do5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Mi5:1/3 Do5:1/3 Mi5:1/3 Sol5:1/3 Mi5:1/3 Do5:1/3 Sol4:0.75 Sol4:0.25 Do5 R:0.5 Do5:0.5 Do5 Do5 Do5 R:1" },
+  { id: 'notas', name: 'Notas', tag: 'Borrador',
+    text: 'Do Sol Do Mi Sol\nSol Mi Do Sol Do' },
+  { id: 'paso', name: 'Paso redoblado', tag: 'Borrador',
+    text: 'Sol:0.5 Sol:0.5 Sol Do:0.5 Do:0.5 Do\nMi:0.5 Mi:0.5 Mi Sol:0.5 Sol:0.5 Sol\nSol:0.5 Mi:0.5 Do Sol:0.5 Mi:0.5 Do:2' },
+  { id: 'tres', name: 'Tres de diana', tag: 'Borrador',
+    text: 'Do:0.5 Do:0.5 Do:0.5 Sol:2\nMi:0.5 Mi:0.5 Mi:0.5 Sol:2' },
+  { id: 'seis', name: 'Seis de diana', tag: 'Borrador',
+    text: 'Do:0.5 Do:0.5 Do:0.5 Do:0.5 Do:0.5 Do:0.5 Sol:2\nMi:0.5 Mi:0.5 Mi:0.5 Mi:0.5 Mi:0.5 Mi:0.5 Sol:2' },
+  { id: 'ciudadela', name: 'Ciudadela', tag: 'Borrador',
+    text: 'Sol Do Mi Sol:2\nMi Do Sol Do:2' },
+  { id: 'diablo', name: 'Diablo', tag: 'Borrador',
+    text: 'Do:0.5 Mi:0.5 Sol Sol:0.5 Mi:0.5 Do\nDo:0.5 Mi:0.5 Sol Sol:2' },
+  { id: 'mio', name: 'Mi toque', 
+    text: 'Do Sol Do Mi Sol' }
+];
+var COLORS = ['#74c93a', '#f5a623', '#3aa0ff', '#b44cf0', '#ff5d73', '#22c7c7', '#f2d14b', '#ff8a3d'];
+var DEFAULTS = { sens: 5, hold: 110, transpose: 0, octave: false, overrides: {}, best: {} };
+var A4 = 440;
+var STORE_KEY = 'corneta-guia-2';
+
+function loadCfg() {
+  var c = {}, k;
+  for (k in DEFAULTS) c[k] = DEFAULTS[k];
+  c.overrides = {}; c.best = {};
+  try {
+    var raw = localStorage.getItem(STORE_KEY);
+    if (raw) { var o = JSON.parse(raw); for (k in o) if (k in DEFAULTS) c[k] = o[k]; }
+  } catch (e) {}
+  return c;
+}
+function saveCfg() { try { localStorage.setItem(STORE_KEY, JSON.stringify(cfg)); } catch (e) {} }
+
+var cfg = loadCfg();
+var follower = new Follower({ holdMs: cfg.hold, requireOctave: cfg.octave, transpose: cfg.transpose });
+var parsed = { lines: [], flat: [], errors: [], totalBeats: 0 };
+var chips = [], laneKeys = [];
+var audio = { ctx: null, stream: null, analyser: null, buf: null, timer: null, guide: null };
+var muteUntil = 0, lastHeardAt = 0, simTimer = null, finishTimer = null;
+var currentId = null, screen = 'menu';
+var play = { score: 0, streak: 0, mult: 1, misses: [], lastMissAt: -9999 };
+var hw = { ctx: null, w: 300, h: 236, scroll: 0, last: 0, ballFrom: -1, ballT0: 0, flashAt: 0, holdPct: 0, raf: 0 };
+
+function songById(id) { for (var i = 0; i < SONGS.length; i++) if (SONGS[i].id === id) return SONGS[i]; return null; }
+function textOf(id) { var s = songById(id); return cfg.overrides[id] !== undefined ? cfg.overrides[id] : s.text; }
+function gateFromSens(s) { return 0.08 * Math.pow(0.7, s); }
+function levelScale(r) { return Math.min(1, Math.sqrt(r / 0.2)); }
+function noteText(tok) { return tok.name + (tok.oct === null ? '' : tok.oct); }
+function laneKeyOf(tok) { return tok.midi !== null ? tok.midi : 60 + tok.pc; }
+function starsHtml(n, total) {
+  var out = '';
+  for (var i = 0; i < total; i++) out += i < n ? '★' : '<span class="off">★</span>';
+  return out;
+}
+function show(name) {
+  screen = name;
+  $('screenMenu').hidden = name !== 'menu';
+  $('screenPlay').hidden = name !== 'play';
+  $('screenResults').hidden = name !== 'results';
+}
+
+/* ---------- menú ---------- */
+function renderMenu() {
+  var box = $('songs');
+  box.textContent = '';
+  SONGS.forEach(function (s, i) {
+    var p = parseSong(textOf(s.id));
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'card-song';
+    var sw = document.createElement('span');
+    sw.className = 'swatch'; sw.style.background = COLORS[i % COLORS.length];
+    var info = document.createElement('span');
+    info.className = 'info';
+    var nm = document.createElement('span'); nm.className = 'name'; nm.textContent = s.name;
+    var meta = document.createElement('span'); meta.className = 'meta';
+    var cnt = document.createElement('span');
+    cnt.textContent = p.flat.length ? p.flat.length + ' notas · ' + p.lines.length + (p.lines.length === 1 ? ' frase' : ' frases') : 'Sin notas todavía';
+    meta.appendChild(cnt);
+    if (s.tag && cfg.overrides[s.id] === undefined) {
+      var tg = document.createElement('span'); tg.className = 'tag'; tg.textContent = s.tag; meta.appendChild(tg);
+    }
+    info.appendChild(nm); info.appendChild(meta);
+    b.appendChild(sw); b.appendChild(info);
+    var best = cfg.best[s.id];
+    if (best) {
+      var bs = document.createElement('span'); bs.className = 'best';
+      var bb = document.createElement('b'); bb.textContent = best.score.toLocaleString('es-MX');
+      var st = document.createElement('span'); st.className = 'stars'; st.innerHTML = starsHtml(best.stars, best.max);
+      bs.appendChild(bb); bs.appendChild(st); b.appendChild(bs);
+    }
+    b.addEventListener('click', function () { openSong(s.id); });
+    box.appendChild(b);
+  });
+}
+
+function fillEditor() {
+  var id = $('editSel').value;
+  $('songText').value = textOf(id);
+  $('songMsg').className = 'msg info';
+  $('songMsg').textContent = '';
+  $('restoreBtn').hidden = cfg.overrides[id] === undefined || id === 'mio';
+}
+function bindEditor() {
+  var sel = $('editSel');
+  SONGS.forEach(function (s) {
+    var o = document.createElement('option');
+    o.value = s.id; o.textContent = s.name; sel.appendChild(o);
+  });
+  sel.value = SONGS[0].id;
+  sel.addEventListener('change', fillEditor);
+  $('saveBtn').addEventListener('click', function () {
+    var id = sel.value, text = $('songText').value, p = parseSong(text), m = $('songMsg');
+    if (p.errors.length) { m.className = 'msg'; m.textContent = 'No entendí: ' + p.errors.join(', ') + '. Usa Do, Re, Mi, Fa, Sol, La o Si.'; return; }
+    if (!p.flat.length) { m.className = 'msg'; m.textContent = 'Escribe al menos una nota.'; return; }
+    cfg.overrides[id] = text;
+    delete cfg.best[id];
+    saveCfg(); renderMenu();
+    $('restoreBtn').hidden = id === 'mio';
+    m.className = 'msg info'; m.textContent = 'Guardado: ' + p.flat.length + ' notas.';
+  });
+  $('restoreBtn').addEventListener('click', function () {
+    var id = sel.value;
+    delete cfg.overrides[id]; delete cfg.best[id];
+    saveCfg(); renderMenu(); fillEditor();
+    $('songMsg').textContent = 'Volvió al original.';
+  });
+  fillEditor();
+}
+
+/* ---------- juego: datos ---------- */
+function renderSong() {
+  var box = $('song');
+  box.textContent = '';
+  chips = [];
+  parsed.lines.forEach(function (line) {
+    var row = document.createElement('div');
+    row.className = 'phrase';
+    line.forEach(function (tok) {
+      var c = document.createElement('span');
+      c.className = 'chip';
+      c.appendChild(document.createTextNode(tok.name));
+      if (tok.oct !== null) { var s = document.createElement('sub'); s.textContent = tok.oct; c.appendChild(s); }
+      row.appendChild(c);
+      chips[tok.index] = c;
+    });
+    box.appendChild(row);
+  });
+}
+
+function renderSimKeys() {
+  var keys = $('keys'), seen = {}, list = [];
+  keys.textContent = '';
+  parsed.flat.forEach(function (tok) {
+    var m = laneKeyOf(tok);
+    if (seen[m]) return;
+    seen[m] = true;
+    list.push({ m: m, tok: tok });
+  });
+  list.sort(function (a, b) { return a.m - b.m; });
+  list.slice(0, 12).forEach(function (it) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = noteText(it.tok);
+    b.addEventListener('click', function () { simulate(it.m); });
+    keys.appendChild(b);
+  });
+}
+
+function computeLanes() {
+  var seen = {};
+  laneKeys = [];
+  parsed.flat.forEach(function (t) { var k = laneKeyOf(t); if (!seen[k]) { seen[k] = true; laneKeys.push(k); } });
+  laneKeys.sort(function (a, b) { return a - b; });
+  parsed.flat.forEach(function (t) { t.lane = laneKeys.indexOf(laneKeyOf(t)); });
+}
+
+function updateHud() {
+  $('score').textContent = play.score.toLocaleString('es-MX');
+  $('mult').textContent = play.mult + '×';
+}
+
+function refresh() {
+  var n = parsed.flat.length, i = follower.idx, t = follower.target();
+  chips.forEach(function (c, k) {
+    c.classList.toggle('done', k < i);
+    c.classList.toggle('current', k === i);
+  });
+  var cur = chips[i], box = $('song');
+  if (cur) {
+    var br = box.getBoundingClientRect(), cr = cur.getBoundingClientRect();
+    if (cr.top < br.top) box.scrollTop -= (br.top - cr.top) + 8;
+    else if (cr.bottom > br.bottom) box.scrollTop += (cr.bottom - br.bottom) + 8;
+  }
+  if (t) {
+    $('tName').textContent = t.name;
+    $('tOct').textContent = t.oct === null ? '' : t.oct;
+    var nx = parsed.flat[i + 1];
+    $('tNext').textContent = nx ? 'Sigue: ' + noteText(nx) : 'Última nota';
+    $('part').textContent = 'Frase ' + (t.line + 1) + ' de ' + parsed.lines.length;
+  } else {
+    $('tName').textContent = '✓'; $('tOct').textContent = ''; $('tNext').textContent = '';
+  }
+  $('count').textContent = n ? (t ? 'Nota ' + (i + 1) + ' de ' + n : n + ' de ' + n) : 'Sin notas';
+  var pct = n ? Math.round(100 * i / n) : 0;
+  $('countPct').textContent = n ? pct + '%' : '';
+  $('bar').style.width = pct + '%';
+  $('hold').style.width = '0%';
+}
+
+function resetPlay() {
+  follower.reset();
+  play.score = 0; play.streak = 0; play.mult = 1; play.misses = []; play.lastMissAt = -9999;
+  hw.scroll = 0; hw.ballFrom = -1; hw.holdPct = 0; hw.flashAt = 0;
+  if (finishTimer) { clearTimeout(finishTimer); finishTimer = null; }
+  updateHud(); refresh(); clearHeard();
+}
+
+function openSong(id) {
+  var s = songById(id), p = parseSong(textOf(id));
+  if (!p.flat.length) {
+    $('editSel').value = id; fillEditor();
+    $('songMsg').className = 'msg'; $('songMsg').textContent = 'Este toque no tiene notas. Escríbelas aquí y guarda.';
+    return;
+  }
+  currentId = id; parsed = p;
+  follower.setSong(parsed.flat);
+  computeLanes();
+  $('songTitle').textContent = s.name;
+  renderSong(); renderSimKeys();
+  show('play');
+  resetPlay();
+  sizeCanvas();
+  startLoop();
+  if (!audio.stream) startMic();
+}
+
+function leavePlay() {
+  stopLoop();
+  if (audio.stream) stopMic();
+  if (finishTimer) { clearTimeout(finishTimer); finishTimer = null; }
+  renderMenu(); fillEditor();
+  show('menu');
+}
+
+/* ---------- lo que escucho ---------- */
+function clearHeard() {
+  $('heardCard').className = 'card heard';
+  $('hn').textContent = '—';
+  $('centsTxt').textContent = '';
+  $('needle').style.setProperty('--pos', '50%');
+}
+
+function showHeard(midiSound, ev) {
+  var near = Math.round(midiSound);
+  var cents = (midiSound - near) * 100;
+  var good = ev.type === 'holding' || ev.type === 'advance' || ev.type === 'waiting';
+  $('heardCard').className = 'card heard live' + (good ? ' ok' : (ev.type === 'wrong' ? ' bad' : ''));
+  $('hn').textContent = noteLabel(near - follower.transpose);
+  var c = Math.max(-50, Math.min(50, cents));
+  $('needle').style.setProperty('--pos', (50 + c) + '%');
+  var r = Math.round(cents);
+  $('centsTxt').textContent = (r > 0 ? '+' : '') + r + ' centésimas ' + (Math.abs(r) < 8 ? '(afinada)' : (r > 0 ? '(alta)' : '(baja)'));
+  lastHeardAt = performance.now();
+}
+
+function pulse(i) {
+  var c = chips[i];
+  if (!c) return;
+  c.classList.remove('pulse');
+  void c.offsetWidth;
+  c.classList.add('pulse');
+}
+
+function gainPop(text) {
+  var g = $('gain');
+  g.textContent = text;
+  g.classList.remove('go');
+  void g.offsetWidth;
+  g.classList.add('go');
+}
+
+/* ---------- puntos y estrellas ---------- */
+function registerMiss(now) {
+  if (now - play.lastMissAt < 700) return;
+  play.lastMissAt = now;
+  play.streak = 0; play.mult = 1;
+  var tok = follower.target();
+  if (tok) play.misses[tok.line] = (play.misses[tok.line] || 0) + 1;
+  hw.flashAt = now;
+  updateHud();
+}
+
+function starsFor(line) {
+  var m = play.misses[line] || 0;
+  return m === 0 ? 3 : (m <= 2 ? 2 : 1);
+}
+
+function step(t, midiSound) {
+  var ev = follower.feed(t, midiSound);
+  hw.holdPct = ev.type === 'holding' ? ev.progress : 0;
+  if (ev.type === 'holding') $('hold').style.width = Math.round(ev.progress * 100) + '%';
+  else $('hold').style.width = '0%';
+  if (midiSound !== null && midiSound !== undefined) showHeard(midiSound, ev);
+  else if (t - lastHeardAt > 250) clearHeard();
+  if (ev.type === 'wrong' && ev.heldMs >= 160) registerMiss(t);
+  if (ev.type === 'advance') {
+    var pts = Math.round(100 * play.mult + (Math.abs(ev.cents) <= 10 ? 50 : 0));
+    play.score += pts;
+    play.streak++;
+    play.mult = Math.min(5, 1 + Math.floor(play.streak / 4));
+    hw.ballFrom = follower.idx - 1; hw.ballT0 = t;
+    updateHud(); gainPop('+' + pts);
+    pulse(follower.idx - 1);
+    try { if (navigator.vibrate) navigator.vibrate(25); } catch (e) {}
+    refresh();
+    if (ev.finished && !finishTimer) finishTimer = setTimeout(showResults, 800);
+  }
+}
+
+function showResults() {
+  finishTimer = null;
+  if (screen !== 'play') return;
+  var s = songById(currentId), lines = parsed.lines.length, stars = [], total = 0, i;
+  for (i = 0; i < lines; i++) { stars.push(starsFor(i)); total += stars[i]; }
+  var prev = cfg.best[currentId];
+  var isBest = !prev || play.score > prev.score;
+  if (isBest) { cfg.best[currentId] = { score: play.score, stars: total, max: lines * 3 }; saveCfg(); }
+  stopLoop();
+  if (audio.stream) stopMic();
+  $('resTitle').textContent = s.name;
+  $('resSub').textContent = parsed.flat.length + ' notas';
+  $('resScore').textContent = play.score.toLocaleString('es-MX');
+  $('resBadge').hidden = !isBest;
+  var box = $('resParts');
+  box.textContent = '';
+  stars.forEach(function (n, k) {
+    var d = document.createElement('div'); d.className = 'rpart';
+    var st = document.createElement('div'); st.className = 'stars'; st.innerHTML = starsHtml(n, 3);
+    var pl = document.createElement('div'); pl.className = 'pl'; pl.textContent = 'Frase ' + (k + 1);
+    d.appendChild(st); d.appendChild(pl); box.appendChild(d);
+  });
+  var idx = SONGS.indexOf(s);
+  $('resNext').textContent = idx < SONGS.length - 1 ? 'Continuar' : 'Volver a los toques';
+  show('results');
+}
+
+/* ---------- pista (canvas) ---------- */
+function sizeCanvas() {
+  var c = $('hw'), r = c.getBoundingClientRect();
+  var dpr = Math.min(2, window.devicePixelRatio || 1);
+  hw.w = Math.max(260, r.width || 320);
+  hw.h = r.height || 236;
+  c.width = Math.round(hw.w * dpr);
+  c.height = Math.round(hw.h * dpr);
+  hw.ctx = c.getContext('2d');
+  hw.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+function rrect(g, x, y, w, h, r) {
+  r = Math.min(r, w / 2, h / 2);
+  g.beginPath();
+  g.moveTo(x + r, y);
+  g.arcTo(x + w, y, x + w, y + h, r);
+  g.arcTo(x + w, y + h, x, y + h, r);
+  g.arcTo(x, y + h, x, y, r);
+  g.arcTo(x, y, x + w, y, r);
+  g.closePath();
+}
+
+function draw(ts) {
+  var g = hw.ctx;
+  if (!g || !parsed.flat.length) return;
+  var W = hw.w, H = hw.h, flat = parsed.flat;
+  var dt = Math.min(0.1, (ts - (hw.last || ts)) / 1000);
+  hw.last = ts;
+  var cur = follower.target(), last = flat[flat.length - 1];
+  var targetBeat = cur ? cur.start : last.start + last.beats;
+  hw.scroll += (targetBeat - hw.scroll) * Math.min(1, dt * 7);
+
+  g.clearRect(0, 0, W, H);
+  g.fillStyle = '#86d13b'; g.fillRect(0, 0, W, H);
+  var sky = g.createLinearGradient(0, 0, 0, H * 0.45);
+  sky.addColorStop(0, 'rgba(255,255,255,0.18)'); sky.addColorStop(1, 'rgba(255,255,255,0)');
+  g.fillStyle = sky; g.fillRect(0, 0, W, H * 0.45);
+
+  var bandTop = Math.round(H * 0.38), bandBot = H - 10, bandH = bandBot - bandTop;
+  g.fillStyle = '#2a2c2f'; g.fillRect(0, bandTop, W, bandBot - bandTop);
+  var n = Math.max(1, laneKeys.length), laneH = Math.min(40, bandH / n);
+  var top0 = bandTop + (bandH - n * laneH) / 2;
+  function laneY(i) { return top0 + (n - 1 - i + 0.5) * laneH; }
+  var i, k;
+  g.strokeStyle = 'rgba(255,255,255,0.14)'; g.lineWidth = 1;
+  for (i = 0; i <= n; i++) {
+    var ly = Math.round(top0 + i * laneH) + 0.5;
+    g.beginPath(); g.moveTo(0, ly); g.lineTo(W, ly); g.stroke();
+  }
+  var nowX = Math.round(W * 0.26), ppb = Math.max(70, W / 5);
+  g.strokeStyle = 'rgba(255,255,255,0.6)'; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(nowX, bandTop); g.lineTo(nowX, bandBot); g.stroke();
+
+  // barras de notas
+  g.font = '800 12px Nunito, system-ui, sans-serif';
+  g.textBaseline = 'middle';
+  for (k = 0; k < flat.length; k++) {
+    var tk = flat[k];
+    var x = nowX + (tk.start - hw.scroll) * ppb, w = Math.max(12, tk.beats * ppb - 4);
+    if (x + w < -10 || x > W + 10) continue;
+    var hh = laneH * 0.68, y = laneY(tk.lane) - hh / 2;
+    var isCur = k === follower.idx;
+    g.globalAlpha = k < follower.idx ? 0.3 : 1;
+    rrect(g, x, y, w, hh, hh / 2);
+    g.fillStyle = COLORS[tk.lane % COLORS.length]; g.fill();
+    if (isCur && hw.holdPct > 0) {
+      rrect(g, x, y, Math.max(hh, w * hw.holdPct), hh, hh / 2);
+      g.fillStyle = 'rgba(255,255,255,0.5)'; g.fill();
+    }
+    if (isCur) {
+      var flash = ts - hw.flashAt < 300;
+      rrect(g, x, y, w, hh, hh / 2);
+      g.lineWidth = flash ? 3 : 2; g.strokeStyle = flash ? '#ff3b30' : '#ffffff'; g.stroke();
+    }
+    if (w > 34) { g.fillStyle = '#10200a'; g.fillText(noteText(tk), x + 10, y + hh / 2 + 1); }
+    g.globalAlpha = 1;
+  }
+
+  // pelota y camino punteado
+  function pos(idx) {
+    var t = flat[idx];
+    var bx = nowX + (t.start - hw.scroll) * ppb + Math.max(12, t.beats * ppb - 4) / 2;
+    return { x: bx, y: laneY(t.lane) - laneH * 0.34 - 10 };
+  }
+  if (cur) {
+    var p1 = pos(cur.index);
+    if (flat[cur.index + 1]) {
+      var p2 = pos(cur.index + 1), s;
+      g.fillStyle = 'rgba(255,255,255,0.65)';
+      for (s = 0.1; s < 1; s += 0.1) {
+        g.beginPath();
+        g.arc(p1.x + (p2.x - p1.x) * s, p1.y + (p2.y - p1.y) * s - 34 * 4 * s * (1 - s), 2, 0, 6.2832);
+        g.fill();
+      }
+    }
+    var bx, by, anim = (ts - hw.ballT0) / 380;
+    if (hw.ballFrom >= 0 && anim < 1 && anim >= 0) {
+      var p0 = pos(hw.ballFrom);
+      bx = p0.x + (p1.x - p0.x) * anim;
+      by = p0.y + (p1.y - p0.y) * anim - 38 * 4 * anim * (1 - anim);
+    } else {
+      bx = p1.x; by = p1.y - 3 * Math.abs(Math.sin(ts / 260));
+    }
+    g.shadowColor = 'rgba(255,255,255,0.8)'; g.shadowBlur = 8;
+    g.fillStyle = '#ffffff';
+    g.beginPath(); g.arc(bx, by, 7, 0, 6.2832); g.fill();
+    g.shadowBlur = 0;
+  }
+}
+
+function frame(ts) {
+  if (screen !== 'play') { hw.raf = 0; return; }
+  draw(ts);
+  hw.raf = requestAnimationFrame(frame);
+}
+function startLoop() { hw.last = 0; if (!hw.raf) hw.raf = requestAnimationFrame(frame); }
+function stopLoop() { if (hw.raf) cancelAnimationFrame(hw.raf); hw.raf = 0; }
+
+/* ---------- micrófono ---------- */
+function setStatus(on) {
+  var s = $('status');
+  s.textContent = on ? 'Escuchando' : 'Micrófono apagado';
+  s.classList.toggle('on', on);
+  var b = $('micBtn');
+  b.textContent = on ? 'Apagar micrófono' : 'Activar micrófono';
+  b.classList.toggle('live', on);
+}
+function micMsg(text, info) { var m = $('micMsg'); m.textContent = text || ''; m.className = 'msg' + (info ? ' info' : ''); }
+function setLevel(rms) { $('lvl').style.width = Math.round(levelScale(rms) * 100) + '%'; }
+function setGateMarker() { $('gate').style.left = Math.round(levelScale(gateFromSens(cfg.sens)) * 100) + '%'; }
+
+function loop() {
+  if (simTimer || !audio.analyser || screen !== 'play') return;
+  audio.analyser.getFloatTimeDomainData(audio.buf);
+  var buf = audio.buf, sum = 0, i;
+  for (i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
+  var rms = Math.sqrt(sum / buf.length);
+  setLevel(rms);
+  var now = performance.now();
+  if (now < muteUntil || rms < gateFromSens(cfg.sens)) { step(now, null); return; }
+  var f = yinPitch(buf, audio.ctx.sampleRate, 0.15);
+  step(now, f > 0 ? freqToMidi(f, A4) : null);
+}
+
+function startMic() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    micMsg('Este navegador no deja usar el micrófono desde aquí. Abre el archivo en Chrome o Edge, o publícalo en una página con https. Mientras tanto puedes probar con las teclas de abajo.');
+    return;
+  }
+  micMsg('Pidiendo permiso del micrófono…', true);
+  navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } })
+    .then(function (stream) {
+      if (screen !== 'play') { stream.getTracks().forEach(function (t) { t.stop(); }); return; }
+      var AC = window.AudioContext || window.webkitAudioContext;
+      var ctx = new AC();
+      var go = ctx.resume ? ctx.resume() : Promise.resolve();
+      return Promise.resolve(go).then(function () {
+        var src = ctx.createMediaStreamSource(stream);
+        var an = ctx.createAnalyser();
+        an.fftSize = 4096;
+        an.smoothingTimeConstant = 0;
+        src.connect(an);
+        audio.ctx = ctx; audio.stream = stream; audio.analyser = an;
+        audio.buf = new Float32Array(an.fftSize);
+        audio.timer = setInterval(loop, 30);
+        setStatus(true);
+        micMsg('Listo. Toca la nota que aparece en verde.', true);
+      });
+    })
+    .catch(function (e) {
+      var name = e && e.name;
+      if (name === 'NotAllowedError' || name === 'SecurityError') micMsg('El navegador bloqueó el micrófono. Permítelo en el candado junto a la dirección y toca "Activar micrófono".');
+      else if (name === 'NotFoundError') micMsg('No encontré ningún micrófono en este dispositivo.');
+      else micMsg('No pude abrir el micrófono (' + (name || 'error') + ').');
+      setStatus(false);
+    });
+}
+
+function stopMic() {
+  if (audio.timer) clearInterval(audio.timer);
+  if (audio.stream) audio.stream.getTracks().forEach(function (t) { t.stop(); });
+  if (audio.ctx && audio.ctx.close) { try { audio.ctx.close(); } catch (e) {} }
+  audio.ctx = audio.stream = audio.analyser = audio.timer = null;
+  setStatus(false); setLevel(0); clearHeard(); micMsg('');
+}
+
+/* ---------- nota de guía y prueba ---------- */
+function playGuide() {
+  var t = follower.target();
+  if (!t) return;
+  var AC = window.AudioContext || window.webkitAudioContext;
+  if (!AC) return;
+  var ctx = audio.ctx || audio.guide || (audio.guide = new AC());
+  if (ctx.resume) ctx.resume();
+  var midi = (t.midi !== null ? t.midi : 60 + t.pc) + follower.transpose;
+  var osc = ctx.createOscillator(), g = ctx.createGain(), now = ctx.currentTime;
+  osc.type = 'triangle';
+  osc.frequency.value = midiToFreq(midi, A4);
+  g.gain.setValueAtTime(0.0001, now);
+  g.gain.exponentialRampToValueAtTime(0.25, now + 0.04);
+  g.gain.setValueAtTime(0.25, now + 0.6);
+  g.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
+  osc.connect(g); g.connect(ctx.destination);
+  osc.start(now); osc.stop(now + 0.85);
+  muteUntil = performance.now() + 1300;
+}
+
+function simulate(written) {
+  if (simTimer || screen !== 'play') return;
+  var m = written + follower.transpose, t0 = performance.now(), total = follower.holdMs + 100;
+  simTimer = setInterval(function () {
+    var el = performance.now() - t0, now = performance.now();
+    if (el < total) step(now, m);
+    else if (el < total + 140) step(now, null);
+    else { clearInterval(simTimer); simTimer = null; }
+  }, 20);
+}
+
+/* ---------- controles ---------- */
+function bind() {
+  bindEditor();
+  $('sens').value = cfg.sens;
+  $('sens').addEventListener('input', function () { cfg.sens = +this.value; saveCfg(); setGateMarker(); });
+  $('holdRange').value = cfg.hold;
+  $('holdVal').textContent = cfg.hold;
+  $('holdRange').addEventListener('input', function () {
+    cfg.hold = +this.value; follower.holdMs = cfg.hold; $('holdVal').textContent = cfg.hold; saveCfg();
+  });
+  $('transpose').value = cfg.transpose;
+  function setTr(v) {
+    v = Math.max(-12, Math.min(12, Math.round(+v || 0)));
+    cfg.transpose = v; follower.transpose = v; $('transpose').value = v; saveCfg();
+  }
+  $('transpose').addEventListener('change', function () { setTr(this.value); });
+  $('trDown').addEventListener('click', function () { setTr(cfg.transpose - 1); });
+  $('trUp').addEventListener('click', function () { setTr(cfg.transpose + 1); });
+  $('octave').checked = !!cfg.octave;
+  $('octave').addEventListener('change', function () { cfg.octave = this.checked; follower.requireOctave = this.checked; saveCfg(); });
+
+  $('micBtn').addEventListener('click', function () { if (audio.stream) stopMic(); else startMic(); });
+  $('hearBtn').addEventListener('click', playGuide);
+  $('restartBtn').addEventListener('click', resetPlay);
+  $('backBtn').addEventListener('click', leavePlay);
+  $('resAgain').addEventListener('click', function () { openSong(currentId); });
+  $('resNext').addEventListener('click', function () {
+    var idx = SONGS.indexOf(songById(currentId));
+    if (idx < SONGS.length - 1) openSong(SONGS[idx + 1].id);
+    else leavePlay();
+  });
+  window.addEventListener('resize', function () { if (screen === 'play') sizeCanvas(); });
+  setGateMarker();
+}
+
+bind();
+renderMenu();
+show('menu');
+})();
+</script>
+</body>
+</html>
